@@ -11,7 +11,7 @@ export class SMSToken {
   id: number;
 
   @Column()
-  userId: number;
+  userId: string;
 
   @Column()
   refreshToken: string;

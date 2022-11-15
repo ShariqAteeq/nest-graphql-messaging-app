@@ -67,7 +67,7 @@ import { DatabaseOrmModule } from './database.orm.module';
           },
         },
       },
-      context: ({ req }) => ({ req }),
+      // context: ({ req }) => ({ req }),
     }),
   ],
   exports: [],

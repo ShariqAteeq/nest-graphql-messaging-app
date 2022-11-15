@@ -46,7 +46,7 @@ export class AuthService {
     return rest;
   }
 
-  async createRefreshToken(userId: number): Promise<string> {
+  async createRefreshToken(userId: string): Promise<string> {
     const refreshToken = randomBytes(64).toString('hex');
     const token = await this.userSerice.storeToken(userId, refreshToken);
     return token.refreshToken;

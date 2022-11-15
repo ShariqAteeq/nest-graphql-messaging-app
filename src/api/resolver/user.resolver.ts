@@ -9,7 +9,7 @@ export class UserResolver {
 
   @Public()
   @Query(() => User)
-  async getUser(@Args('id') id: number): Promise<User> {
+  async getUser(@Args('id') id: string): Promise<User> {
     return await this.userService.getUser(id);
   }
 }

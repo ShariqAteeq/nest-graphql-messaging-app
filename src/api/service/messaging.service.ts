@@ -1,3 +1,4 @@
+import { SendMessageInput } from './../dto/messaging';
 import { Message } from './../entities/message';
 import { Conversation } from './../entities/conversation';
 import { Injectable } from '@nestjs/common';
@@ -11,5 +12,11 @@ export class MessagingService {
     @InjectRepository(Message) private msgRepo: Repository<Message>,
   ) {}
 
-  async sendMessage() {}
+  async sendMessage(input: SendMessageInput) {
+    const { otherUserId, message } = input;
+    const conversationId = '';
+    // const existingConvo = await this.convoRepo.findOne({ where: { id: conversationId } });
+    // const conversation = await this.convoRepo.save([{ id: "1" }])
+    // return conversation;
+  }
 }

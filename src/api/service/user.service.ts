@@ -6,7 +6,6 @@ import { User } from '../entities/user';
 import * as bcrypt from 'bcrypt';
 import { SMSToken } from '../entities/token';
 import * as moment from 'moment';
-
 @Injectable()
 export class UserService {
   constructor(
@@ -34,7 +33,7 @@ export class UserService {
     return createdUser;
   }
 
-  async getUser(id: number): Promise<User> {
+  async getUser(id: string): Promise<User> {
     const user = await this.userRepo.findOne({
       where: { id },
     });
@@ -48,7 +47,7 @@ export class UserService {
     return await this.userRepo.find();
   }
 
-  async storeToken(userId: number, refreshToken: string): Promise<SMSToken> {
+  async storeToken(userId: string, refreshToken: string): Promise<SMSToken> {
     const token = this.SMSTokenRepo.create({
       userId,
       refreshToken,

@@ -29,6 +29,14 @@ export class Conversation {
 
   @Column()
   @Field()
+  userId: number;
+
+  @ManyToOne(() => User, (use) => use.id)
+  @Field(() => User)
+  user: User;
+
+  @Column()
+  @Field()
   msgUnreadCount: number;
 
   @CreateDateColumn({

@@ -9,9 +9,9 @@ import {
 @ObjectType()
 @Entity('User')
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn('uuid')
   @Field()
-  id: number;
+  id: string;
 
   @Column({ unique: true, nullable: true })
   @Field({ nullable: true })
