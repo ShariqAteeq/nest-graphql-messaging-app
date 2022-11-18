@@ -8,3 +8,8 @@ export class SendMessageInput {
   @Field()
   message: string;
 }
+@InputType()
+export class GetMessagesInput {
+  @Field()
+  otherUserId: string;
+}

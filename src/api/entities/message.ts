@@ -21,7 +21,15 @@ export class Message {
 
   @Column()
   @Field()
-  fromId: number;
+  fromId: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  conversationId: string;
+
+  @Column()
+  @Field()
+  isRead: boolean;
 
   @ManyToOne(() => User, (user) => user.id)
   @Field(() => User, { nullable: true })

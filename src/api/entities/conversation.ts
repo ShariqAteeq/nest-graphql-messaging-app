@@ -21,7 +21,7 @@ export class Conversation {
 
   @Column()
   @Field()
-  otherUserId: number;
+  otherUserId: string;
 
   @ManyToOne(() => User, (use) => use.id)
   @Field(() => User)
@@ -29,15 +29,11 @@ export class Conversation {
 
   @Column()
   @Field()
-  userId: number;
+  userId: string;
 
   @ManyToOne(() => User, (use) => use.id)
   @Field(() => User)
   user: User;
-
-  @Column()
-  @Field()
-  msgUnreadCount: number;
 
   @CreateDateColumn({
     type: 'timestamp',
