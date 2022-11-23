@@ -23,8 +23,8 @@ export class Message {
   @Field()
   fromId: string;
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
+  @Column()
+  @Field()
   conversationId: string;
 
   @Column()

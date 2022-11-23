@@ -5,12 +5,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CurrentUser } from 'src/decorators/user.decorator';
+import { UserService } from './user.service';
 
 @Injectable()
 export class MessagingService {
   constructor(
     @InjectRepository(Conversation) private convoRepo: Repository<Conversation>,
     @InjectRepository(Message) private msgRepo: Repository<Message>,
+    private userService: UserService,
   ) {}
 
   async sendMessage(
@@ -19,12 +21,14 @@ export class MessagingService {
   ): Promise<Conversation> {
     const { otherUserId, message } = input;
     const { userId } = user;
-    const myConvoId = `${userId}_${otherUserId}`;
-    const otherUserConvoId = `${otherUserId}_${userId}`;
+    const conversationId =
+      userId < otherUserId
+        ? `${userId}_${otherUserId}`
+        : `${otherUserId}_${userId}`;
     const conversation = await this.convoRepo.save([
-      { id: myConvoId, lastMessage: message, userId, otherUserId },
+      { conversationId, lastMessage: message, userId, otherUserId },
       {
-        id: otherUserConvoId,
+        conversationId,
         lastMessage: message,
         userId: otherUserId,
         otherUserId: userId,
@@ -33,7 +37,7 @@ export class MessagingService {
     const messageObj = new Message();
     messageObj['message'] = message;
     messageObj['fromId'] = userId;
-    messageObj['conversationId'] = myConvoId;
+    messageObj['conversationId'] = conversationId;
     messageObj['isRead'] = false;
     await this.msgRepo.save(messageObj);
     return conversation[0];
@@ -50,11 +54,13 @@ export class MessagingService {
   ): Promise<Message[]> {
     const { otherUserId } = input;
     const { userId } = user;
-    const myConvoId = `${userId}_${otherUserId}`;
-    const otherUserConvoId = `${otherUserId}_${userId}`;
+    const conversationId =
+      userId < otherUserId
+        ? `${userId}_${otherUserId}`
+        : `${otherUserId}_${userId}`;
     return await this.msgRepo.find({
       where: {
-        conversationId: userId < otherUserId ? myConvoId : otherUserConvoId,
+        conversationId,
       },
     });
   }

@@ -10,6 +10,7 @@ import { User } from './entities/user';
 import { UserResolver } from './resolver/user.resolver';
 import { HelperService } from './service/helper.service';
 import { UserService } from './service/user.service';
+import { Test } from './entities/test';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserService } from './service/user.service';
     TypeOrmModule.forFeature([Message]),
     TypeOrmModule.forFeature([Conversation]),
     TypeOrmModule.forFeature([SMSToken]),
+    TypeOrmModule.forFeature([Test]),
   ],
   providers: [
     UserResolver,

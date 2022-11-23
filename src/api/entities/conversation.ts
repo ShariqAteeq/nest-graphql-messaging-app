@@ -13,23 +13,23 @@ import {
 export class Conversation {
   @PrimaryColumn()
   @Field()
-  id: string;
+  userId: string;
+
+  @PrimaryColumn()
+  @Field()
+  otherUserId: string;
+
+  @Column()
+  @Field()
+  conversationId: string;
 
   @Column()
   @Field()
   lastMessage: string;
 
-  @Column()
-  @Field()
-  otherUserId: string;
-
   @ManyToOne(() => User, (use) => use.id)
   @Field(() => User)
   otherUser: User;
-
-  @Column()
-  @Field()
-  userId: string;
 
   @ManyToOne(() => User, (use) => use.id)
   @Field(() => User)
