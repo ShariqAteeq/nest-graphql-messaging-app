@@ -1,16 +1,18 @@
+import { TestUnion } from './../dto/test';
 import { Field } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Test')
 export class Test {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ type: 'bigint' })
   @Field()
-  id1: string;
+  id: number;
 
-  @PrimaryColumn()
-  @Field()
-  id2: string;
-
-  @Column()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   name: string;
+
+  // @Column({nul})
+  // @Field(() => TestUnion)
+  // type: TestUnion
 }

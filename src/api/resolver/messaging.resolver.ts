@@ -1,18 +1,10 @@
 import { Message } from './../entities/message';
 import { GqlAuthGuard } from './../../auth/auth.guard';
-import { SendMessageInput, GetMessagesInput } from './../dto/messaging';
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { GetMessagesInput } from './../dto/messaging';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { MessagingService } from '../service/messaging.service';
 import { CurrentUser } from 'src/decorators/user.decorator';
 import { UseGuards } from '@nestjs/common';
-import { Conversation } from '../entities/conversation';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Test } from '../entities/test';
 import { Repository } from 'typeorm';
