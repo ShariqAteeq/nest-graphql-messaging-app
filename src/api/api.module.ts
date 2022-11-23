@@ -11,6 +11,7 @@ import { UserResolver } from './resolver/user.resolver';
 import { HelperService } from './service/helper.service';
 import { UserService } from './service/user.service';
 import { Test } from './entities/test';
+import { ConversationResolver } from './resolver/conversation.resolver';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Test } from './entities/test';
     UserService,
     HelperService,
     MessagingResolver,
+    ConversationResolver,
     MessagingService,
   ],
   exports: [],

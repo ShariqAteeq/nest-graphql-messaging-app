@@ -27,13 +27,8 @@ export class Conversation {
   @Field()
   lastMessage: string;
 
-  @ManyToOne(() => User, (use) => use.id)
-  @Field(() => User)
+  @Field(() => User, { nullable: true })
   otherUser: User;
-
-  @ManyToOne(() => User, (use) => use.id)
-  @Field(() => User)
-  user: User;
 
   @CreateDateColumn({
     type: 'timestamp',
