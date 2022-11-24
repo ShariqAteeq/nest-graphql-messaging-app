@@ -31,6 +31,11 @@ export enum ExpenseStatus {
   APPROVED = 'APPROVED',
 }
 
+export enum NotificationType {
+  DMED = 'DMED',
+  SCONVO = 'SCONVO',
+}
+
 export interface Mail {
   to: string;
   subject?: string;
@@ -42,6 +47,10 @@ export interface Mail {
 
 registerEnumType(Role, {
   name: 'Role',
+});
+
+registerEnumType(NotificationType, {
+  name: 'NotificationType',
 });
 
 registerEnumType(UserStatus, {
