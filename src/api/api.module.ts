@@ -13,6 +13,7 @@ import { UserService } from './service/user.service';
 import { Test } from './entities/test';
 import { ConversationResolver } from './resolver/conversation.resolver';
 import { PubSub } from 'graphql-subscriptions';
+import { TestResolver } from './resolver/test.resolver';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PubSub } from 'graphql-subscriptions';
     HelperService,
     MessagingResolver,
     ConversationResolver,
+    TestResolver,
     MessagingService,
     {
       provide: 'PUB_SUB',

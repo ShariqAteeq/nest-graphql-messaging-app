@@ -1,7 +1,8 @@
 import { TestUnion } from './../dto/test';
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
+@ObjectType()
 @Entity('Test')
 export class Test {
   @PrimaryGeneratedColumn({ type: 'bigint' })
@@ -12,7 +13,7 @@ export class Test {
   @Field({ nullable: true })
   name: string;
 
-  // @Column({nul})
-  // @Field(() => TestUnion)
-  // type: TestUnion
+  @Field(() => [TestUnion], { nullable: true }) // For Returning Array of multiple entities
+  // @Field(() =>TestUnion, { nullable: true }) // For Returnning single object of multiple entities
+  typeDetail: typeof TestUnion;
 }

@@ -5,14 +5,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CurrentUser } from 'src/decorators/user.decorator';
-import { UserService } from './user.service';
 
 @Injectable()
 export class MessagingService {
   constructor(
     @InjectRepository(Conversation) private convoRepo: Repository<Conversation>,
     @InjectRepository(Message) private msgRepo: Repository<Message>,
-    private userService: UserService,
   ) {}
 
   async sendMessage(
