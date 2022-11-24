@@ -12,6 +12,7 @@ import { HelperService } from './service/helper.service';
 import { UserService } from './service/user.service';
 import { Test } from './entities/test';
 import { ConversationResolver } from './resolver/conversation.resolver';
+import { PubSub } from 'graphql-subscriptions';
 
 @Module({
   imports: [
@@ -29,6 +30,10 @@ import { ConversationResolver } from './resolver/conversation.resolver';
     MessagingResolver,
     ConversationResolver,
     MessagingService,
+    {
+      provide: 'PUB_SUB',
+      useValue: new PubSub(),
+    },
   ],
   exports: [],
 })
