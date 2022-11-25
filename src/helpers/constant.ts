@@ -26,13 +26,17 @@ export enum EmployeeType {
   CLEANER = 'CLEANER',
 }
 
+export enum SubsciptionEvent {
+  MSG_SENT = 'MSG_SENT',
+  CONVO = 'CONVO',
+}
+
 export enum ExpenseStatus {
   PENDING = 'PENDING',
   APPROVED = 'APPROVED',
 }
 
 export enum NotificationType {
-  DMED = 'DMED',
   SCONVO = 'SCONVO',
 }
 

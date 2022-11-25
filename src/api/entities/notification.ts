@@ -1,12 +1,13 @@
-import { User } from './user';
 import { NotificationType } from './../../helpers/constant';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { INotification } from '../dto/notification';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@ObjectType({
-  implements: () => [INotification],
-})
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+@ObjectType()
 @Entity('Notification')
 export class Notification implements INotification {
   @PrimaryGeneratedColumn('uuid')
@@ -29,15 +30,9 @@ export class Notification implements INotification {
   @Field({ nullable: true })
   message: string;
 
-  @Field(() => User, { nullable: true })
-  fromUser: User;
-
   @Column({ nullable: true })
   @Field({ nullable: true })
   fromUserId: string;
-
-  @Field(() => User, { nullable: true })
-  otherUser: User;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
@@ -47,7 +42,26 @@ export class Notification implements INotification {
   @Field({ nullable: true })
   conversationId: string;
 
-  @Column()
-  @Field()
+  @CreateDateColumn({
+    type: 'timestamp',
+    nullable: true,
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  @Field({ nullable: true })
   createdAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    nullable: true,
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  @Field({ nullable: true })
+  logCreatedAt: Date;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  logUpdatedAt: Date;
 }

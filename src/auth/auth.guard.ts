@@ -16,17 +16,15 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
   }
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
-    console.log('get request');
 
-    const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-    console.log('isPublic', isPublic);
-    if (isPublic) {
-      return ctx.getContext().req;
-    }
-    console.log('running');
+    // const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
+    //   context.getHandler(),
+    //   context.getClass(),
+    // ]);
+    // console.log('isPublic', isPublic);
+    // if (isPublic) {
+    //   return ctx.getContext().req;
+    // }
     const authHeader = ctx.getContext().req?.headers?.authorization as string;
     if (!authHeader) {
       throw new HttpException('Token not Found', HttpStatus.NOT_FOUND);

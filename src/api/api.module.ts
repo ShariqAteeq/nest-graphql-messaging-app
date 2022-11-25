@@ -14,6 +14,9 @@ import { Test } from './entities/test';
 import { ConversationResolver } from './resolver/conversation.resolver';
 import { PubSub } from 'graphql-subscriptions';
 import { TestResolver } from './resolver/test.resolver';
+import { NotificationResolver } from './resolver/notification.resolver';
+import { Notification } from './entities/notification';
+import { NotificationService } from './service/notification.service';
 
 @Module({
   imports: [
@@ -22,13 +25,16 @@ import { TestResolver } from './resolver/test.resolver';
     TypeOrmModule.forFeature([Message]),
     TypeOrmModule.forFeature([Conversation]),
     TypeOrmModule.forFeature([SMSToken]),
+    TypeOrmModule.forFeature([Notification]),
     TypeOrmModule.forFeature([Test]),
   ],
   providers: [
     UserResolver,
     UserService,
     HelperService,
+    NotificationService,
     MessagingResolver,
+    NotificationResolver,
     ConversationResolver,
     TestResolver,
     MessagingService,

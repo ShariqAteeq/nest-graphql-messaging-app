@@ -16,6 +16,8 @@ import { Conversation } from '../entities/conversation';
 import { UserService } from '../service/user.service';
 import { PubSub } from 'graphql-subscriptions';
 import { User } from '../entities/user';
+import { SubsciptionEvent } from 'src/helpers/constant';
+import { NotificationService } from '../service/notification.service';
 
 @Resolver(() => Conversation)
 export class ConversationResolver {
@@ -23,6 +25,7 @@ export class ConversationResolver {
     @Inject('PUB_SUB') private pubSub: PubSub,
     private msgService: MessagingService,
     private userService: UserService,
+    private notificationService: NotificationService,
   ) {}
 
   // ====== Queries =======
@@ -44,14 +47,24 @@ export class ConversationResolver {
     @CurrentUser() user,
   ): Promise<Conversation> {
     const conversation = await this.msgService.sendMessage(input, user);
-    this.pubSub.publish('messageSent', { messageSent: conversation });
+    const { conversationId, otherUserId, lastMessage } = conversation;
+    await this.notificationService.sendNotifToConvo({
+      userId: user['userId'],
+      conversationId,
+      otherUserId,
+      message: lastMessage,
+    });
+    this.pubSub.publish(SubsciptionEvent.MSG_SENT, {
+      messageSent: conversation,
+    });
     return conversation;
   }
 
   // ====== Subscription ==========
 
+  @UseGuards(GqlAuthGuard)
   @Subscription(() => Conversation, {
-    name: 'messageSent',
+    name: SubsciptionEvent.MSG_SENT,
     filter(payload, variables) {
       console.log('payload', payload);
       console.log('payload', variables);
@@ -59,7 +72,7 @@ export class ConversationResolver {
     },
   })
   messageSent(@Args('userId') userId: string) {
-    return this.pubSub.asyncIterator('messageSent');
+    return this.pubSub.asyncIterator(SubsciptionEvent.MSG_SENT);
   }
 
   // ====== Resolvers =======
