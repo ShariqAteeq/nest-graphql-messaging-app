@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { NotifyConvo, SConvo } from '../dto/notification';
 import { Notification } from '../entities/notification';
 import { PubSub } from 'graphql-subscriptions';
+import { CurrentUser } from 'src/decorators/user.decorator';
 
 @Injectable()
 export class NotificationService {
@@ -21,10 +22,16 @@ export class NotificationService {
       otherUserId,
       conversationId,
       read: false,
+      __typename: 'SConvo',
       type: NotificationType.SCONVO,
     });
     const res = await this.notifRepo.save(notifyObj);
     this.pubSub.publish(SubsciptionEvent.CONVO, { onNotified: res });
     return res;
   }
+
+  // async listNotifications(@CurrentUser() user): Promise<Noti[]> {
+  //   const { userId } = user;
+  //   return await this.convoRepo.find({ where: { userId } });
+  // }
 }

@@ -7,11 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-@ObjectType()
 @Entity('Notification')
-export class Notification implements INotification {
+export class Notification {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => ID)
   id: string;
 
   @Column()
@@ -19,7 +17,6 @@ export class Notification implements INotification {
   userId: string;
 
   @Column()
-  @Field(() => NotificationType)
   type: NotificationType;
 
   @Column()
@@ -27,27 +24,25 @@ export class Notification implements INotification {
   read: Boolean;
 
   @Column({ nullable: true })
-  @Field({ nullable: true })
   message: string;
 
   @Column({ nullable: true })
-  @Field({ nullable: true })
   fromUserId: string;
 
   @Column({ nullable: true })
-  @Field({ nullable: true })
   otherUserId: string;
 
   @Column({ nullable: true })
-  @Field({ nullable: true })
   conversationId: string;
+
+  @Column({ nullable: true })
+  __typename: string;
 
   @CreateDateColumn({
     type: 'timestamp',
     nullable: true,
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  @Field({ nullable: true })
   createdAt: Date;
 
   @CreateDateColumn({
@@ -55,7 +50,6 @@ export class Notification implements INotification {
     nullable: true,
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  @Field({ nullable: true })
   logCreatedAt: Date;
 
   @CreateDateColumn({

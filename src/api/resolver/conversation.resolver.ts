@@ -55,7 +55,7 @@ export class ConversationResolver {
       message: lastMessage,
     });
     this.pubSub.publish(SubsciptionEvent.MSG_SENT, {
-      messageSent: conversation,
+      onMsgSent: conversation,
     });
     return conversation;
   }
@@ -64,14 +64,14 @@ export class ConversationResolver {
 
   @UseGuards(GqlAuthGuard)
   @Subscription(() => Conversation, {
-    name: SubsciptionEvent.MSG_SENT,
+    name: 'onMsgSent',
     filter(payload, variables) {
       console.log('payload', payload);
       console.log('payload', variables);
-      return payload['messageSent']['otherUserId'] === variables['userId'];
+      return payload['onMsgSent']['otherUserId'] === variables['userId'];
     },
   })
-  messageSent(@Args('userId') userId: string) {
+  onMsgSent(@Args('userId') userId: string) {
     return this.pubSub.asyncIterator(SubsciptionEvent.MSG_SENT);
   }
 

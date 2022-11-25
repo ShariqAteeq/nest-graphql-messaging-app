@@ -1,5 +1,11 @@
 import { NotificationType } from './../../helpers/constant';
-import { Field, ID, InterfaceType, ObjectType } from '@nestjs/graphql';
+import {
+  createUnionType,
+  Field,
+  ID,
+  InterfaceType,
+  ObjectType,
+} from '@nestjs/graphql';
 import { User } from '../entities/user';
 
 @InterfaceType()
@@ -52,6 +58,11 @@ export class SConvo implements INotification {
   @Field()
   createdAt: Date;
 }
+
+export const Notification = createUnionType({
+  name: 'Notification',
+  types: () => [SConvo] as const,
+});
 
 export class NotifyConvo {
   userId: string;
