@@ -1,3 +1,4 @@
+import { NotificationData } from './../dto/notification';
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotificationType, SubsciptionEvent } from 'src/helpers/constant';
@@ -30,8 +31,10 @@ export class NotificationService {
     return res;
   }
 
-  // async listNotifications(@CurrentUser() user): Promise<Noti[]> {
-  //   const { userId } = user;
-  //   return await this.convoRepo.find({ where: { userId } });
-  // }
+  async listNotifications(
+    @CurrentUser() user,
+  ): Promise<typeof NotificationData[]> {
+    const { userId } = user;
+    return await this.notifRepo.find({ where: { userId } });
+  }
 }

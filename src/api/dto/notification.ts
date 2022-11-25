@@ -59,8 +59,8 @@ export class SConvo implements INotification {
   createdAt: Date;
 }
 
-export const Notification = createUnionType({
-  name: 'Notification',
+export const NotificationData = createUnionType({
+  name: 'NotificationData',
   types: () => [SConvo] as const,
 });
 
