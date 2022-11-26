@@ -17,6 +17,7 @@ import { TestResolver } from './resolver/test.resolver';
 import { NotificationResolver } from './resolver/notification.resolver';
 import { Notification } from './entities/notification';
 import { NotificationService } from './service/notification.service';
+import { SConvoResolver } from './resolver/sconvo.resolver';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { NotificationService } from './service/notification.service';
     NotificationService,
     MessagingResolver,
     NotificationResolver,
+    SConvoResolver,
     ConversationResolver,
     TestResolver,
     MessagingService,

@@ -15,7 +15,6 @@ export class MessagingResolver {
   constructor(
     private msgService: MessagingService,
     private userService: UserService,
-    @InjectRepository(Test) private testRepo: Repository<Test>,
   ) {}
 
   // ====== Queries =======
