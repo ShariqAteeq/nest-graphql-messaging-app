@@ -2,7 +2,7 @@ import { NotificationData } from './../dto/notification';
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotificationType, SubsciptionEvent } from 'src/helpers/constant';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { NotifyConvo, SConvo } from '../dto/notification';
 import { Notification } from '../entities/notification';
 import { PubSub } from 'graphql-subscriptions';
@@ -38,6 +38,13 @@ export class NotificationService {
 
   async readAllNotificaions(@CurrentUser() user) {
     const { userId } = user;
+    const notificationIDs = await this.notifRepo.find({ where: { userId } });
+    await this.notifRepo.update(
+      {
+        id: In(notificationIDs.map((x) => x['id'])),
+      },
+      { read: true },
+    );
     return true;
   }
 }
