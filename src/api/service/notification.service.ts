@@ -31,10 +31,13 @@ export class NotificationService {
     return res;
   }
 
-  async listNotifications(
-    @CurrentUser() user,
-  ): Promise<typeof NotificationData[]> {
+  async listNotifications(@CurrentUser() user) {
     const { userId } = user;
     return await this.notifRepo.find({ where: { userId } });
+  }
+
+  async readAllNotificaions(@CurrentUser() user) {
+    const { userId } = user;
+    return true;
   }
 }

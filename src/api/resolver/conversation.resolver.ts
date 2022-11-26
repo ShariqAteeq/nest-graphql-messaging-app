@@ -49,9 +49,9 @@ export class ConversationResolver {
     const conversation = await this.msgService.sendMessage(input, user);
     const { conversationId, otherUserId, lastMessage } = conversation;
     await this.notificationService.sendNotifToConvo({
-      userId: user['userId'],
+      userId: otherUserId,
       conversationId,
-      otherUserId,
+      otherUserId: user['userId'],
       message: lastMessage,
     });
     this.pubSub.publish(SubsciptionEvent.MSG_SENT, {
